@@ -13,8 +13,24 @@ on:
           - prod
 
 jobs:
-  deploy:
-    name: "Deploy to Dev"
+  build-image:
+    name: "Build Docker Image"
     runs-on: ubuntu-latest
     steps:
-      - run: echo "We did thing!"
+      - run: echo "Docker image is creating.."
+
+  push-image:
+    name: "Push Docker Image"
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Docker image is pushing to ECR.."
+  task-definition:
+    name: "Creating task definition"
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "ECS task definition is updating..."
+  deploy-service:
+    name: "Service deploy"
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Service is deploying..."
