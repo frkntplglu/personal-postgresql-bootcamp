@@ -13,7 +13,8 @@ on:
           - prod
 
 jobs:
-  Something:
+  deploy:
+    name: "Deploy to Dev"
     runs-on: ubuntu-latest
     steps:
       - run: echo "We did thing!"
