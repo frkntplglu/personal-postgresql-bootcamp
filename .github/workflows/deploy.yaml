@@ -1,4 +1,4 @@
-name: ECS Deploy
+name: ECS Deploy Simulation
 
 on:
   workflow_dispatch:
@@ -13,24 +13,49 @@ on:
           - prod
 
 jobs:
-  build-image:
-    name: "Build Docker Image"
+  build-and-push-docker-image:
     runs-on: ubuntu-latest
-    steps:
-      - run: echo "Docker image is creating.."
 
-  push-image:
-    name: "Push Docker Image"
-    runs-on: ubuntu-latest
     steps:
-      - run: echo "Docker image is pushing to ECR.."
-  task-definition:
-    name: "Creating task definition"
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: |
+          echo "Building Docker image for ${{ github.event.inputs.environment }} environment..."
+          # docker build -t my-image:${{ github.sha }} .
+          echo "Docker image built successfully."
+
+      - name: Push Docker Image
+        run: |
+          echo "Pushing Docker image to registry..."
+          # docker push my-image:${{ github.sha }}
+          echo "Docker image pushed successfully."
+
+  update-ecs-task-definition:
+    needs: build-and-push-docker-image
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "ECS task definition is updating..."
-  deploy-service:
-    name: "Service deploy"
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Update ECS Task Definition
+        run: |
+          echo "Updating ECS task definition for ${{ github.event.inputs.environment }} environment..."
+          # Simulate updating ECS task definition
+          echo "ECS task definition updated successfully."
+
+  deploy-ecs-service:
+    needs: update-ecs-task-definition
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "Service is deploying..."
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Deploy ECS Service
+        run: |
+          echo "Deploying ECS service for ${{ github.event.inputs.environment }} environment..."
+          # Simulate ECS service deployment
+          echo "ECS service deployed successfully."
