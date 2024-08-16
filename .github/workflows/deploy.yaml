@@ -30,7 +30,7 @@ jobs:
       - name: Push Docker Image
         run: |
           echo "Pushing Docker image to registry..."
-          # docker push my-image:${{ github.sha }}
+          # docker push my-image:${{ github.sha }}:${{ github.event.inputs.tag }}
           echo "Docker image pushed successfully."
 
   update-ecs-task-definition:
