@@ -14,6 +14,7 @@ on:
 
 jobs:
   build-and-push-docker-image:
+    name: Build and Push Docker image
     runs-on: ubuntu-latest
 
     steps:
@@ -33,6 +34,7 @@ jobs:
           echo "Docker image pushed successfully."
 
   update-ecs-task-definition:
+    name: Update ECS Task Definition
     needs: build-and-push-docker-image
     runs-on: ubuntu-latest
 
@@ -47,6 +49,7 @@ jobs:
           echo "ECS task definition updated successfully."
 
   deploy-ecs-service:
+    name: Deploy ECS service to ${{ github.event.inputs.environment }}
     needs: update-ecs-task-definition
     runs-on: ubuntu-latest
 
